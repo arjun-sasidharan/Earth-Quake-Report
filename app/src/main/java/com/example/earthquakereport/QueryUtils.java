@@ -64,9 +64,11 @@ public class QueryUtils {
                 String location = properties.getString("place");
                 //get time value
                 long time = properties.getLong("time");
+                //get url value
+                String url = properties.getString("url");
 
                 //adding data into array list
-                earthquakes.add(new EarthQuake(magnitude, location, time));
+                earthquakes.add(new EarthQuake(magnitude, location, time, url));
             }
 
         } catch (JSONException e) {

@@ -1,13 +1,16 @@
 package com.example.earthquakereport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -23,6 +26,8 @@ public class QuakeReportAdapter extends ArrayAdapter<EarthQuake> {
         //using custom layout, so put 0 there
         super(context, 0, earthquakes);
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -74,6 +79,7 @@ public class QuakeReportAdapter extends ArrayAdapter<EarthQuake> {
 
         return listItemView;
     }
+
 
     //helper method: to find the color of each magnitude range
     private int getMagnitudeColor(double magnitudeInDecimal) {
