@@ -2,28 +2,28 @@ package com.example.earthquakereport;
 // this is class of earth quake report
 public class EarthQuake {
 
-    private String mMagnitude;
+    private double mMagnitudeInDecimal;
     private String mLocation;
-    private String mDate;
+    private long mTimeInMilliseconds;
 
     //constructor
-    public EarthQuake(String vMagnitude, String vLocation, String vDate){
-        mMagnitude = vMagnitude;
+    public EarthQuake(double vMagnitude, String vLocation, long timeInMilliseconds){
+        mMagnitudeInDecimal = vMagnitude;
         mLocation = vLocation;
-        mDate = vDate;
+        mTimeInMilliseconds = timeInMilliseconds;
     }
 
     //method to get magnitude
-    public String getMagnitude(){
-        return mMagnitude;
+    public double getMagnitudeInDecimal(){
+        return mMagnitudeInDecimal;
     }
 
     //method to get location
     public String getLocation(){
         return mLocation;
     }
-    public String getDate(){
-        return mDate;
+    public long getTimeInMilliseconds(){
+        return mTimeInMilliseconds;
     }
 
 }

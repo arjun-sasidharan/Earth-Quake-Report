@@ -13,15 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        //creating a fake list of earthquake location
-//        ArrayList<EarthQuake> earthquakes = new ArrayList<>();
-//        earthquakes.add(new EarthQuake("5.5","San Francisco","15/02/2021"));
-//        earthquakes.add(new EarthQuake("5.5","London","15/02/2021"));
-//        earthquakes.add(new EarthQuake("5.5","Tokyo","15/02/2021"));
-//        earthquakes.add(new EarthQuake("5.5","Mexico City","15/02/2021"));
-//        earthquakes.add(new EarthQuake("5.5","Moscow","15/02/2021"));
-//        earthquakes.add(new EarthQuake("5.5","Rio de Janeiro","15/02/2021"));
-//        earthquakes.add(new EarthQuake("5.5","Paris","15/02/2021"));
         //calling query util to parse json
         ArrayList<EarthQuake> earthquakes = QueryUtils.extractEarthquakes();
 
