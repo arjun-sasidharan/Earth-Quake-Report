@@ -1,7 +1,10 @@
 package com.example.earthquakereport;
 // EarthquakeActivity
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +67,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //calling loader
         LoaderManager loaderManager = getLoaderManager();
+
+        //making reference to the Empty state text view
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+
+        //making reference to the progress bar view
+        mLoadingBar = (ProgressBar) findViewById(R.id.loading_bar);
+
+        /**
+         * Checking whether internet connection available or not, calling isNetworkAvailable() method,
+         * it return true, if internet available
+         */
+        if (isNetworkAvailable()){
+            Log.v(LOG_TAG,"Internet connection available");
+        }
+        else {
+            Log.e(LOG_TAG,"No internet connection");
+            //if internet is not conneted, then change the Empty view text view to say "internet is not connected"
+            mEmptyStateTextView.setText(R.string.no_internet);
+            //also hide the loading indicator
+            mLoadingBar.setVisibility(View.GONE);
+        }
+        //calling loader even if internet available or not
         Log.v(LOG_TAG,"calling init loader");
         loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
 
@@ -80,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
+
+        //specifying the empty view
+        earthquakeListView.setEmptyView(mEmptyStateTextView);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,14 +126,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        //empty state text view
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-        earthquakeListView.setEmptyView(mEmptyStateTextView);
-
-        //progress bar view
-        mLoadingBar = (ProgressBar) findViewById(R.id.loading_bar);
-
-
     }
 
     @Override
@@ -118,7 +138,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(@NonNull Loader<List<EarthQuake>> loader, List<EarthQuake> earthQuakes) {
         Log.v(LOG_TAG,"on onLoadFinished method");
         // Set empty state text to display "No earthquakes found."
-        mEmptyStateTextView.setText(R.string.no_earthquakes);
+
+        //here even if internet is gone in the middle of using the app, the app shows no earthquakes found, to fix that
+        if (isNetworkAvailable()){
+            mEmptyStateTextView.setText(R.string.no_earthquakes);
+        }
+        else{
+            Log.e(LOG_TAG,"No internet connection");
+            mEmptyStateTextView.setText(R.string.no_internet);
+        }
 
         //hiding the visibility of the progress bar
         mLoadingBar.setVisibility(View.GONE);
@@ -198,5 +226,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
  */
+
+    /**
+     * Method to check availability of internet connection
+     */
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
 }

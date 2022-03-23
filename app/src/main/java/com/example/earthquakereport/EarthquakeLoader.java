@@ -4,7 +4,6 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
 import java.util.List;
 
 public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuake>> {
@@ -38,5 +37,6 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuake>> {
         List<EarthQuake> earthquakes = QueryUtils.fetchEarthquakeData(mUrl);
         return earthquakes;
     }
+
 
 }
