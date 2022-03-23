@@ -1,10 +1,14 @@
 package com.example.earthquakereport;
 // EarthquakeActivity
+
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,7 +16,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<EarthQuake>> {
+
+    /**
+     * Log TAG
+     */
+    public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
 //    /** URL for earthquake data from the USGS dataset (Large)*/
 //    private static final String USGS_REQUEST_URL =
@@ -28,14 +37,27 @@ public class MainActivity extends AppCompatActivity {
      */
     private QuakeReportAdapter mAdapter;
 
+    /**
+     * Constant value for the earthquake loader ID. We can choose any integer.
+     * This really only comes into play if you're using multiple loaders.
+     */
+    private static final int EARTHQUAKE_LOADER_ID = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+    /**
+     * Async task code, old way, not using anymore
         //calling the asyntask
         EarthquakeAsyncTask backgroundTask = new EarthquakeAsyncTask();
         backgroundTask.execute(USGS_REQUEST_URL);
+    */
+        //calling loader
+        LoaderManager loaderManager = getLoaderManager();
+        Log.v(LOG_TAG,"calling init loader");
+        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+
 
         //referring to the list view
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
@@ -68,6 +90,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public Loader<List<EarthQuake>> onCreateLoader(int i, Bundle bundle) {
+        Log.v(LOG_TAG,"on onCreateLoader method");
+        return new EarthquakeLoader(this, USGS_REQUEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<List<EarthQuake>> loader, List<EarthQuake> earthQuakes) {
+        Log.v(LOG_TAG,"on onLoadFinished method");
+       //clear the adapter of previous earthquake data
+        mAdapter.clear();
+        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (earthQuakes != null && !earthQuakes.isEmpty()) {
+            mAdapter.addAll(earthQuakes);
+        }
+    }
+    @Override
+    public void onLoaderReset(@NonNull Loader<List<EarthQuake>> loader) {
+        Log.v(LOG_TAG,"on onLoaderReset method");
+        //loader reset, so we can clear out our existing data
+        mAdapter.clear();
+    }
+
     /**
      * old way, so commenting out
      */
@@ -93,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
+/**
+ * Async task code, old way, not using anymore
     private class EarthquakeAsyncTask extends AsyncTask<String, Void, List<EarthQuake>> {
 
         @Override
@@ -113,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
 //                return;
 //            }
 //            updateUI(result);
-            /**
-             * New way
-             */
+
+             //New way
+
             //Clear the adapter of previous earthquake data
             mAdapter.clear();
 
@@ -126,4 +173,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+ */
+
 }
