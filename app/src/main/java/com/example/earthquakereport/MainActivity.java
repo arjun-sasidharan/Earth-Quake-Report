@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * Text view that is displayed when the list is empty
      * */
     private TextView mEmptyStateTextView;
+    private ProgressBar mLoadingBar;
 
     /**
      * Log TAG
@@ -99,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //empty state text view
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         earthquakeListView.setEmptyView(mEmptyStateTextView);
+
+        //progress bar view
+        mLoadingBar = (ProgressBar) findViewById(R.id.loading_bar);
+
+
     }
 
     @Override
@@ -112,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.v(LOG_TAG,"on onLoadFinished method");
         // Set empty state text to display "No earthquakes found."
         mEmptyStateTextView.setText(R.string.no_earthquakes);
+
+        //hiding the visibility of the progress bar
+        mLoadingBar.setVisibility(View.GONE);
 
        //clear the adapter of previous earthquake data
         mAdapter.clear();
