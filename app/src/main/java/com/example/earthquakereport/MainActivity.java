@@ -12,11 +12,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<EarthQuake>> {
+    /**
+     * Text view that is displayed when the list is empty
+     * */
+    private TextView mEmptyStateTextView;
 
     /**
      * Log TAG
@@ -47,12 +52,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     /**
      * Async task code, old way, not using anymore
         //calling the asyntask
         EarthquakeAsyncTask backgroundTask = new EarthquakeAsyncTask();
         backgroundTask.execute(USGS_REQUEST_URL);
     */
+
         //calling loader
         LoaderManager loaderManager = getLoaderManager();
         Log.v(LOG_TAG,"calling init loader");
@@ -88,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(websiteIntent);
             }
         });
+
+        //empty state text view
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        earthquakeListView.setEmptyView(mEmptyStateTextView);
     }
 
     @Override
@@ -99,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(@NonNull Loader<List<EarthQuake>> loader, List<EarthQuake> earthQuakes) {
         Log.v(LOG_TAG,"on onLoadFinished method");
+        // Set empty state text to display "No earthquakes found."
+        mEmptyStateTextView.setText(R.string.no_earthquakes);
+
        //clear the adapter of previous earthquake data
         mAdapter.clear();
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
