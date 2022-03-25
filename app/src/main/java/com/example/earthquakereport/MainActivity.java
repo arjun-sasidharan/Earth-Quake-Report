@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         backgroundTask.execute(USGS_REQUEST_URL);
     */
 
+
         //calling loader
         LoaderManager loaderManager = getLoaderManager();
 
