@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.131" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/drawable/ic_filter.xml" value="0.1745" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/drawable/ic_launcher_background.xml" value="0.131" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/drawable/magnitude_circle.xml" value="0.111" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/layout/activity_settings.xml" value="0.14402173913043478" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/layout/quake_report_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/menu/main.xml" value="0.1734375" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/EarthQuakeReport/app/src/main/res/xml/settings_main.xml" value="0.15217391304347827" />
       </map>
     </option>
   </component>

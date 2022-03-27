@@ -30,6 +30,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuake>> {
     @Override
     public List<EarthQuake> loadInBackground() {
         Log.v(LOG_TAG,"on loadInBackground method");
+        Log.v(LOG_TAG,"URL: " + mUrl);
 // dont perform http request if the url is empty
         if (mUrl.length() == 0 || mUrl== null) {
             return null;
